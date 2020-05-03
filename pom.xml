@@ -22,6 +22,8 @@
         <logback.version>1.2.3</logback.version>
         <java.version>1.8</java.version>
         <encoding>UTF-8</encoding>
+        <apache.common.lang3>3.9</apache.common.lang3>
+        <im.common.version>1.0</im.common.version>
     </properties>
 
 
@@ -61,6 +63,18 @@
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
                 <version>${logback.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${apache.common.lang3}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com</groupId>
+                <artifactId>common</artifactId>
+                <version>${im.common.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

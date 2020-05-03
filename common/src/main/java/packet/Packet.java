@@ -1,6 +1,5 @@
 package packet;
 
-import codec.Command;
 import lombok.Data;
 
 /**
@@ -13,7 +12,7 @@ import lombok.Data;
 @Data
 public abstract class Packet {
 
-    private byte version;
+    private byte version = 1;
 
-    public abstract Command getCommand();
+    public abstract Byte getCommand();
 }

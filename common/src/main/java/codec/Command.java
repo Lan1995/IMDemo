@@ -1,6 +1,10 @@
 package codec;
 
-public enum Command {
+public interface Command {
 
-    LOGIN;
+    Byte LOGIN = 1;
+
+    Byte LOGIN_REP = 2;
+
+    Byte IDLE = 2;
 }

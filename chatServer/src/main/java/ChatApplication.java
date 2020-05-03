@@ -1,6 +1,7 @@
-import channelHandler.ServerChannelHandlerInit;
+import handler.ServerHandlerInit;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -20,25 +21,21 @@ public class ChatApplication {
         ServerBootstrap bootstrap = new ServerBootstrap();
         EventLoopGroup boss = new NioEventLoopGroup();
         EventLoopGroup worker = new NioEventLoopGroup();
-        ServerChannelHandlerInit handlerInit = new ServerChannelHandlerInit();
+        ServerHandlerInit handlerInit = new ServerHandlerInit();
         bootstrap.group(boss, worker)
+                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 6000)
+                .childOption(ChannelOption.SO_KEEPALIVE, true)
+                .childOption(ChannelOption.TCP_NODELAY, true)
                 .channel(NioServerSocketChannel.class)
                 .childHandler(handlerInit);
         ChannelFuture future = bootstrap.bind("127.0.0.1", 8080);
-        try {
-            future.sync().addListener(listener -> {
-                if (listener.isSuccess()) {
-                    log.info("------------- 启动成功 --------------");
-                } else {
-                    log.info("------------- 启动失败 --------------");
-                }
-            });
-            future.channel().closeFuture().sync();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            boss.shutdownGracefully().sync();
-            worker.shutdownGracefully().sync();
-        }
+        future.addListener(listener -> {
+            if (listener.isSuccess()) {
+                log.info("------------- 启动成功 --------------");
+            } else {
+                log.info("------------- 启动失败 --------------");
+            }
+        });
+
     }
 }

@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 public class IdlePacket extends Packet {
     @Override
-    public Command getCommand() {
-        return null;
+    public Byte getCommand() {
+        return Command.IDLE;
     }
 }

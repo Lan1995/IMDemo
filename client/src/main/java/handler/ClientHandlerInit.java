@@ -1,4 +1,4 @@
-package channelHandler;
+package handler;
 
 
 import io.netty.channel.ChannelInitializer;
@@ -12,11 +12,11 @@ import io.netty.channel.socket.SocketChannel;
  *
  * @author: m2keloop
  **/
-public class ClientChannelHandlerInit extends ChannelInitializer<SocketChannel> {
+public class ClientHandlerInit extends ChannelInitializer<SocketChannel> {
     protected void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
-        pipeline.addLast(new SpliterChannelHandler(Integer.MAX_VALUE, SpliterChannelHandler.MAX_SKIP, SpliterChannelHandler.DATA_LENGTH));
+        pipeline.addLast(new SplitChannelHandler());
         pipeline.addLast(CodecChannelHandler.INSTANCE);
-        pipeline.addLast(new LoginResponse());
+        pipeline.addLast(new LoginResponseHandler());
     }
 }

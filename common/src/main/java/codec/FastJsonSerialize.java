@@ -1,5 +1,7 @@
 package codec;
 
+import algorithm.Serialize;
+import algorithm.SerializeType;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
@@ -17,12 +19,12 @@ public class FastJsonSerialize implements Serialize {
     }
 
     @Override
-    public Object deserialize(byte[] bytes) {
-        return JSON.parseObject(new String(bytes));
+    public <T> T deserialize(byte[] bytes, Class<T> clz) {
+        return JSON.parseObject(bytes, clz);
     }
 
     @Override
-    public SerializeType getSerializeType() {
-        return SerializeType.FastJSON;
+    public byte getSerializeType() {
+        return SerializeType.JSON;
     }
 }

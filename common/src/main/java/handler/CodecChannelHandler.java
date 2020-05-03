@@ -1,4 +1,4 @@
-package channelHandler;
+package handler;
 
 import codec.PocketCodec;
 import io.netty.buffer.ByteBuf;
@@ -24,10 +24,12 @@ public class CodecChannelHandler extends MessageToMessageCodec<ByteBuf, Packet> 
     private CodecChannelHandler() {
     }
 
+    @Override
     protected void encode(ChannelHandlerContext ctx, Packet msg, List<Object> out) throws Exception {
-        out.add(PocketCodec.encode(ctx.alloc().buffer(), msg));
+        out.add(PocketCodec.encode(ctx.alloc().ioBuffer(), msg));
     }
 
+    @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out) throws Exception {
         out.add(PocketCodec.decode(msg));
     }
